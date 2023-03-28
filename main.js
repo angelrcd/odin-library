@@ -31,7 +31,10 @@ Book.prototype.addToTable = function (index) {
   row.insertCell().textContent = this.author;
   row.insertCell().textContent = this.pages;
   row.insertCell().textContent = this.readen;
-  row.insertCell().innerHTML = `<button class="remove" data-index='${index}'>Remove</button>`;
+  row.insertCell().innerHTML = `
+                                <button class="remove" data-index='${index}'>Remove</button>
+                                <button class="set-read" data-index='${index}'>Toogle read</button>
+                                `;
 };
 
 /// ///////////////
@@ -45,16 +48,25 @@ function updateTableElementLibrary() {
   table.innerHTML = "";
   myLibrary.forEach((book, index) => book.addToTable(index));
 
-  const setEventsRemoveButtonsNodeList = () => {
+  const setEventsButtonsNodeList = () => {
     const removeButtons = document.querySelectorAll(".remove");
+    const toggleButtons = document.querySelectorAll(".set-read");
+
     removeButtons.forEach((button) => {
       button.addEventListener("click", () => {
         removeBook(button.getAttribute("data-index"));
       });
     });
+
+    toggleButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        myLibrary[button.getAttribute("data-index")].toggleRead();
+        updateTableElementLibrary();
+      });
+    });
   };
 
-  setEventsRemoveButtonsNodeList();
+  setEventsButtonsNodeList();
 }
 
 function removeBook(index) {
