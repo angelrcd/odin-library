@@ -15,17 +15,15 @@ function Book(title, author, pages, readen) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.readen = readen;
-
-  this.info = function () {
-    return `${this.title} by ${this.author}, ${this.pages}, ${
-      this.readen ? "readen" : "not read yet"
-    }`;
-  };
+  this.read = readen;
 }
 
 Book.prototype.toggleRead = function () {
-  this.readen = !this.readen;
+  this.read = !this.read;
+};
+
+Book.prototype.getReadInfo = function () {
+  return this.read ? "Read" : "Not read yet";
 };
 
 Book.prototype.addToTable = function (index) {
@@ -33,7 +31,7 @@ Book.prototype.addToTable = function (index) {
   row.insertCell().textContent = this.title;
   row.insertCell().textContent = this.author;
   row.insertCell().textContent = this.pages;
-  row.insertCell().textContent = this.readen;
+  row.insertCell().textContent = this.getReadInfo();
   row.insertCell().innerHTML = `
                                 <button class="remove" data-index='${index}'>Remove</button>
                                 <button class="set-read" data-index='${index}'>Toogle read</button>
