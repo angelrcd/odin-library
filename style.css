@@ -1,0 +1,60 @@
+body {
+  background-color: #f8fafc;
+}
+
+::backdrop {
+  background-color: #00000070;
+}
+
+.add-book-button {
+  border: none;
+  background: none;
+}
+
+.add-book-button:hover {
+  transform: scale(1.1);
+}
+
+.add-book-button img{
+  height: 3rem;
+  aspect-ratio: 1 / 1;
+}
+
+table th {
+  text-align: left;
+}
+
+tr {
+  border: 1px solid gray;
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 5px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-radius: 8px;
+  background-color: #F5F7FD;
+}
+
+thead tr {
+  font-size: 1.2em;
+  font-weight: 600;
+  background-color: #E9EDFB;
+}
+
+tbody td {
+  display: flex;
+  align-items: center;
+}
+
+tbody td:last-child {
+  display: flex;
+  gap: 10px;
+}
+
+table {
+  width: 90vw;
+  border-collapse: collapse;
+}
+
+h1 {
+  color: blue;
+}
