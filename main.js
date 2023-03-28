@@ -5,7 +5,9 @@ const myLibrary = [];
 const openModalButton = document.querySelector(".add-book-button");
 const addBookModal = document.querySelector("dialog");
 const form = document.querySelector(".submit-new-book");
+const table = document.querySelector("table tbody");
 
+// Book constructor
 function Book(title, author, pages, readen) {
   this.title = title;
   this.author = author;
@@ -23,9 +25,24 @@ Book.prototype.toggleRead = function () {
   this.readen = !this.readen;
 };
 
+Book.prototype.addToTable = function () {
+  const row = table.insertRow();
+  row.insertCell().textContent = this.title;
+  row.insertCell().textContent = this.author;
+  row.insertCell().textContent = this.pages;
+  row.insertCell().textContent = this.readen;
+};
+
+/// ///////////////
+
 function addBookToLibrary(bookData) {
   const book = new Book(...bookData);
   myLibrary.push(book);
+}
+
+function updateTableElementLibrary() {
+  table.innerHTML = "";
+  myLibrary.forEach((book) => book.addToTable());
 }
 
 form.addEventListener("submit", (e) => {
@@ -44,9 +61,8 @@ form.addEventListener("submit", (e) => {
   // Empty form and close modal after adding book
   const inputs = form.querySelectorAll("input");
   inputs.forEach((input) => (input.value = ""));
+  updateTableElementLibrary();
   addBookModal.close();
-  // TODO delete
-  console.table(myLibrary);
 });
 
 openModalButton.addEventListener("click", () => {
