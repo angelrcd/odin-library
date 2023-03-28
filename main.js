@@ -6,6 +6,9 @@ const openModalButton = document.querySelector(".add-book-button");
 const addBookModal = document.querySelector("dialog");
 const form = document.querySelector(".submit-new-book");
 const table = document.querySelector("table tbody");
+const numberOfBooks = document.querySelector(".number-books");
+
+updateNumberOfBooks();
 
 // Book constructor
 function Book(title, author, pages, readen) {
@@ -42,6 +45,7 @@ Book.prototype.addToTable = function (index) {
 function addBookToLibrary(bookData) {
   const book = new Book(...bookData);
   myLibrary.push(book);
+  updateNumberOfBooks();
 }
 
 function updateTableElementLibrary() {
@@ -72,6 +76,11 @@ function updateTableElementLibrary() {
 function removeBook(index) {
   myLibrary.splice(index, 1);
   updateTableElementLibrary();
+  updateNumberOfBooks();
+}
+
+function updateNumberOfBooks() {
+  numberOfBooks.textContent = myLibrary.length;
 }
 
 form.addEventListener("submit", (e) => {
