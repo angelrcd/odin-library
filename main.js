@@ -25,12 +25,13 @@ Book.prototype.toggleRead = function () {
   this.readen = !this.readen;
 };
 
-Book.prototype.addToTable = function () {
+Book.prototype.addToTable = function (index) {
   const row = table.insertRow();
   row.insertCell().textContent = this.title;
   row.insertCell().textContent = this.author;
   row.insertCell().textContent = this.pages;
   row.insertCell().textContent = this.readen;
+  row.insertCell().innerHTML = `<button class="remove" data-index='${index}'>Remove</button>`;
 };
 
 /// ///////////////
@@ -42,7 +43,23 @@ function addBookToLibrary(bookData) {
 
 function updateTableElementLibrary() {
   table.innerHTML = "";
-  myLibrary.forEach((book) => book.addToTable());
+  myLibrary.forEach((book, index) => book.addToTable(index));
+
+  const setEventsRemoveButtonsNodeList = () => {
+    const removeButtons = document.querySelectorAll(".remove");
+    removeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        removeBook(button.getAttribute("data-index"));
+      });
+    });
+  };
+
+  setEventsRemoveButtonsNodeList();
+}
+
+function removeBook(index) {
+  myLibrary.splice(index, 1);
+  updateTableElementLibrary();
 }
 
 form.addEventListener("submit", (e) => {
