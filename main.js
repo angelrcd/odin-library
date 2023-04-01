@@ -11,32 +11,34 @@ const numberOfBooks = document.querySelector(".number-books");
 updateNumberOfBooks();
 
 // Book constructor
-function Book(title, author, pages, readen) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = readen;
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+
+  toggleRead() {
+    this.read = !this.read;
+  }
+
+  getReadInfo() {
+    return this.read ? "Read" : "Not read yet";
+  }
+
+  addToTable(index) {
+    const row = table.insertRow();
+    row.insertCell().textContent = this.title;
+    row.insertCell().textContent = this.author;
+    row.insertCell().textContent = this.pages;
+    row.insertCell().textContent = this.getReadInfo();
+    row.insertCell().innerHTML = `
+                                  <button class="remove" data-index='${index}'>Remove</button>
+                                  <button class="set-read" data-index='${index}'>Toogle read</button>
+                                  `;
+  }
 }
-
-Book.prototype.toggleRead = function () {
-  this.read = !this.read;
-};
-
-Book.prototype.getReadInfo = function () {
-  return this.read ? "Read" : "Not read yet";
-};
-
-Book.prototype.addToTable = function (index) {
-  const row = table.insertRow();
-  row.insertCell().textContent = this.title;
-  row.insertCell().textContent = this.author;
-  row.insertCell().textContent = this.pages;
-  row.insertCell().textContent = this.getReadInfo();
-  row.insertCell().innerHTML = `
-                                <button class="remove" data-index='${index}'>Remove</button>
-                                <button class="set-read" data-index='${index}'>Toogle read</button>
-                                `;
-};
 
 /// ///////////////
 
